@@ -1,22 +1,41 @@
 body {
   font-family: 'Poppins', sans-serif;
 }
-.tick line {
+
+.marks .land {
+  fill:  #d8d8d8;  
+}
+
+.marks .interiors {
+  fill:  none;  
   stroke: #C0C0BB;
 }
-.tick text {
-  fill: #635F5D;
+
+.marks .sphere {
+  fill: #f8f8f8;
 }
-.marks circle {
+
+.marks .graticules,
+.tick line {
+  fill:  none;  
+  stroke: #dadada;
+}
+
+.marks circle, .marks rect {
   fill:  #137B80;
 }
-.marks path {
-  stroke:  #137B80;
-  stroke-width: 4;
-  stroke-linejoin: round;
-  stroke-linecap: round;
+
+circle {
+  fill:  #137B80;
+  opacity: 0.3;
 }
+
+.tick text {
+  font-size: 0.5em;
+  fill: #635F5D;
+}
+
 .axis-label{
-  font-size: 1.5em;
+  font-size: 0.5em;
   color: #635F5D;
 }

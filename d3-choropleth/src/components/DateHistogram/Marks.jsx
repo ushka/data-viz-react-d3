@@ -1,5 +1,4 @@
 import React from 'https://cdn.skypack.dev/react';
-import { line, curveNatural } from 'https://cdn.skypack.dev/d3';
 
 export const Marks = ({ binnedData, xScale, yScale, tooltipFormat, innerHeight }) => (
   <g className="marks">

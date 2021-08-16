@@ -1,6 +1,6 @@
 # React & D3 - Choropleth
 
-A React and D3 Choropleth app using HIV/AIDS dataset.
+A React and D3 app to create a choropleth visualisation using HIV/AIDS dataset.
 
 ## Usage
 

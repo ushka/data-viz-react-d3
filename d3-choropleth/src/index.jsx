@@ -1,92 +1,41 @@
-import React from 'https://cdn.skypack.dev/react';
+import React, { useState } from 'https://cdn.skypack.dev/react';
 import ReactDOM from 'https://cdn.skypack.dev/react-dom';
-import { scaleLinear, scaleTime, timeFormat, extent, bin, timeMonths, sum, max } from 'https://cdn.skypack.dev/d3';
+import { useWorldAtlas } from './useWorldAtlas';
 import { useData } from './useData';
-import { AxisBottom } from './components/AxisBottom';
-import { AxisLeft } from './components/AxisLeft';
-import { Marks } from './components/Marks';
+import { BubbleMap } from './components/BubbleMap/index';
+import { DateHistogram } from './components/DateHistogram/index';
 
 const width = 960;
 const height = 500;
-const margin = {
-  top: 20,
-  right: 30,
-  bottom: 65,
-  left: 90
-};
-const xAxisLabelOffset = 80;
-const yAxisLabelOffset = 45;
+const dateHistogramSize = 0.2;
+const xValue = d => d['Reported Date'];
 
 const App = () => {
+  const worldAtlas = useWorldAtlas();  
   const data = useData();  
+  const [brushExtent, setBrushExtent] = useState();
 
-  if(!data) {
+  // console.log(brushExtent);
+
+  if(!worldAtlas || !data) {
     return <div>Loading...</div>
-  }
+  }  
 
-  const xValue = d => d['Reported Date'];
-  const xAxisLabel = 'Date';
-
-  const yValue = d => d['Total Dead and Missing'];
-  const yAxisLabel = 'Total Dead and Missing';  
-
-  const innerHeight = height - margin.top - margin.bottom;
-  const innerWidth = width - margin.left - margin.right; 
-
-  const xAxisTickFormat = timeFormat('%m/%d/%Y');
-
-  const xScale = scaleTime()
-    .domain(extent(data, xValue))
-    .range([0, innerWidth])
-    .nice();  
-
-  const [start, stop] = xScale.domain();  
-
-  const binnedData = bin()
-    .value(xValue)
-    .domain(xScale.domain())
-    .thresholds(timeMonths(start, stop))(data)
-    .map(array => ({
-      y: sum(array, yValue),
-      x0: array.x0,
-      x1: array.x1
-    }));
-
-  const yScale = scaleLinear()
-    .domain([0, max(binnedData, d => d.y)])
-    .range([innerHeight, 0])
-    .nice();  
-
-  console.log(yScale.domain());
-  console.log(binnedData);      
+  const filteredData = brushExtent ? data.filter(d => {
+    const date = xValue(d);
+    return date > brushExtent[0] && date < brushExtent[1];
+  }) : data;
 
   return (
-    <svg width={width} height={height}>
-      <g transform={`translate(${margin.left},${margin.top})`}>        
-        <AxisBottom 
-          xScale={xScale} 
-          innerHeight={innerHeight} 
-          tickFormat={xAxisTickFormat} 
-          tickOffset={7} />        
-        <text 
-          className="axis-label" 
-          textAnchor="middle" 
-          transform={`translate(${-yAxisLabelOffset},${innerHeight / 2}) rotate(-90)`}>{yAxisLabel}</text>        
-        <AxisLeft 
-          yScale={yScale} 
-          innerWidth={innerWidth} 
-          tickOffset={7} />          
-        <text 
-          className="axis-label" 
-          x={innerWidth / 2} 
-          y={innerHeight + xAxisLabelOffset} 
-          textAnchor="middle">{xAxisLabel}</text>
-        <Marks 
-          binnedData={binnedData} 
-          xScale={xScale} 
-          yScale={yScale} 
-          tooltipFormat={d => d} 
-          innerHeight={innerHeight} />
+    <svg width={width} height={height}>  
+      <BubbleMap data={data} filteredData={filteredData} worldAtlas={worldAtlas} />
+      <g transform={`translate(0, ${height - dateHistogramSize * height})`}>
+        <DateHistogram 
+          data={data} 
+          width={width} 
+          height={dateHistogramSize * height} 
+          setBrushExtent={setBrushExtent}
+          xValue={xValue} />
       </g>
     </svg>
   );
