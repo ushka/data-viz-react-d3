@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading and Parsing CSV Data</title>
+  <script src="https://unpkg.com/d3@7.0.0/dist/d3.min.js"></script>
+</head>
+<body>
+<pre id="message-container"></pre>  
+  
+<script>
+
+// original approach without d3 csv
+  
+// const fetchText = async(url) => {
+//   const response = await fetch(url);
+//   return await response.text();
+// };
+
+// const csvUrl = "https://gist.githubusercontent.com/ushka/e4d6364c7826e702fc8cc6d65b824d17/raw/cssNamedColors.csv";
+
+// fetchText(csvUrl).then(text => {
+//   const data = d3.csvParse(text);
+//   let message = '';
+//   message = message + Math.round(text.length / 1024) + ' KB\n';  
+//   message = message + data.length + ' rows\n'; 
+//   message = message + data.columns.length + ' columns\n'; 
+//   document.getElementById('message-container').textContent = message;
+// });
+
+
+// less verbose method as d3 csv returns a promise already
+
+const csvUrl = "https://gist.githubusercontent.com/ushka/e4d6364c7826e702fc8cc6d65b824d17/raw/cssNamedColors.csv";
+
+d3.csv(csvUrl).then(data => {
+  let message = '';
+  message = message + Math.round(d3.csvFormat(data).length / 1024) + ' KB\n';  
+  message = message + data.length + ' rows\n'; 
+  message = message + data.columns.length + ' columns\n'; 
+  document.getElementById('message-container').textContent = message;
+});
+
+</script>
+
+</body>
+</html>

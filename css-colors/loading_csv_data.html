@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loading CSV Data</title>
+</head>
+<body>
+  
+<script>
+  
+// const url = "https://gist.githubusercontent.com/ushka/e4d6364c7826e702fc8cc6d65b824d17/raw/cssNamedColors.csv";
+
+// console.log(fetch(url));
+
+// fetch(url).then(response => {
+//   response.text().then(text => {
+//     console.log(text);
+//   });
+// });
+
+const fetchText = async(url) => {
+  const response = await fetch(url);
+  return await response.text();
+};
+
+const csvUrl = "https://gist.githubusercontent.com/ushka/e4d6364c7826e702fc8cc6d65b824d17/raw/cssNamedColors.csv";
+
+fetchText(csvUrl).then(text => {
+  console.log(text);  
+});
+
+
+</script>
+
+</body>
+</html>
