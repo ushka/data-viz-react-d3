@@ -9,6 +9,7 @@ const width = 960;
 const height = 500;
 const dateHistogramSize = 0.2;
 const xValue = d => d['Reported Date'];
+const selectedYear = '2017';
 
 const App = () => {
   const worldAtlas = useWorldAtlas();  
@@ -21,10 +22,13 @@ const App = () => {
     return <div>Loading...</div>
   }  
 
-  const filteredData = brushExtent ? data.filter(d => {
-    const date = xValue(d);
-    return date > brushExtent[0] && date < brushExtent[1];
-  }) : data;
+  const filteredData = data.filter(d => d.Year === selectedYear);
+  console.log(filteredData);
+
+  // const filteredData = brushExtent ? data.filter(d => {
+  //   const date = xValue(d);
+  //   return date > brushExtent[0] && date < brushExtent[1];
+  // }) : data;
 
   return (
     <svg width={width} height={height}>  
