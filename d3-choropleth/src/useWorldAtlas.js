@@ -5,21 +5,17 @@ import { feature, mesh } from 'https://cdn.skypack.dev/topojson';
 const jsonUrl = 'https://unpkg.com/world-atlas@2.0.2/countries-50m.json';
 
 export const useWorldAtlas = () => {
- const [data, setData] = useState(null);
-
- // console.log(data);
- // console.log(feature);
+  const [data, setData] = useState(null);
 
   useEffect(() => {
     json(jsonUrl).then(topology => {
-      // console.log(topology);
       const { countries, land } = topology.objects;
       setData({
         countries: feature(topology, countries),
         interiors: mesh(topology, countries, (a, b) => a !== b)
       });
     });
-  }, [])
+  }, []);
 
   return data;
 };
