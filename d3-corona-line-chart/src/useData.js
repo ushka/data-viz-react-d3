@@ -11,9 +11,7 @@ export const useData = () => {
   // }
 
   useEffect(() => {
-    csv(csvUrl).then(data => {
-      setData(data)
-    });
+    csv(csvUrl).then(setData);
   }, [])
 
   return data;
