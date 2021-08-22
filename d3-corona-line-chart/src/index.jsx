@@ -8,7 +8,9 @@ const height = window.innerHeight;
 
 const App = () => { 
   const data = useData();  
-  return <LineChart data={data} width={width} height={height} />
+  return data 
+    ? <LineChart data={data} width={width} height={height} /> 
+    : null;
 };
 
 ReactDOM.render(<App />, document.getElementById("root"));
