@@ -4,25 +4,30 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-pre {
-  font-size: 7em;
-}
-
-.marks .sphere {
-  fill: #fbfbfb;
-}
-
-.marks .interiors {
+path {
   fill: none;
-  stroke: #d9dfe0;
+  stroke: black;
+  stroke-width: 2px;
 }
 
-.marks .graticules {
-  fill: none;
-  stroke: #ececec;
+.marker-line {
+  stroke: black;
+  stroke-width: 2px;
 }
 
-circle {
-  fill: #137B80;
-  opacity: 0.3;
+text {
+  font-size: 2em;
+}
+
+.domain {
+  display: none;
+}
+
+.tick line {
+  stroke: #bbbbbb;
+}
+
+.tick text {
+  fill: #565656;
+  font-size: 14px;
 }
