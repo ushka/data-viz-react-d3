@@ -9,13 +9,10 @@ const parseDate = timeParse('%d/%m/%y');
 const transform = rawData => {
   // console.log(rawData.columns);
   const days = rawData.columns.slice(4);
-  return days.map(day => {
-    const deathTotal = rawData.map(d => +d[day]).reduce(sum, 0);
-    return {
-      date: parseDate(day),
-      deathTotal
-    };
-  });  
+  return days.map(day => ({
+    date: parseDate(day),
+    deathTotal: rawData.map(d => +d[day]).reduce(sum, 0)
+  }));  
 };
 
 export const useData = () => {
