@@ -10,7 +10,7 @@ const App = () => {
   const data = useData();  
   return data 
     ? <LineChart data={data} width={width} height={height} /> 
-    : null;
+    : <div>Loading...</div>;
 };
 
 ReactDOM.render(<App />, document.getElementById("root"));
