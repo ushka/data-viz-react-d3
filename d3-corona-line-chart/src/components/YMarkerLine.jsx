@@ -8,6 +8,7 @@ export const YMarkerLine = ({ value, yScale, innerWidth }) => {
     <>
       <line 
         className="markerLine" 
+        stroke-dasharray="4"
         x1={markerLineX1} 
         y1={markerLineY} 
         x2={markerLineX2} 
