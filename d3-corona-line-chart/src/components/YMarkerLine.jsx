@@ -1,6 +1,6 @@
 import React from 'https://cdn.skypack.dev/react';
 
-export const YMarkerLine = ({ value, yScale }) => {
+export const YMarkerLine = ({ value, yScale, innerWidth }) => {
   const markerLineY = yScale(value);
   const markerLineX1 = 0;
   const markerLineX2 = innerWidth;
