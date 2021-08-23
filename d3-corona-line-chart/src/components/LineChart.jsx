@@ -18,10 +18,15 @@ export const LineChart = ({ data, width, height }) => {
 
   const lineGenerator = line()
     .x(d => xScale(xValue(d)))
-    .y(d => yScale(yValue(d)))
+    .y(d => yScale(yValue(d)));
+
+  const markerLineY = yScale(100000);
+  const markerLineX1 = 0;
+  const markerLineX2 = width;
 
   return (
     <svg width={width} height={height}> 
+      <line className="markerLine" x1={markerLineX1} y1={markerLineY} x2={markerLineX2} y2={markerLineY} />
       <path d={lineGenerator(data)} />
     </svg>
   );  

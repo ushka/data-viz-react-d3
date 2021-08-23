@@ -10,9 +10,9 @@ path {
   stroke-width: 2px;
 }
 
-.marker-line {
+.markerLine {
   stroke: black;
-  stroke-width: 2px;
+  stroke-width: 1px;
 }
 
 text {
