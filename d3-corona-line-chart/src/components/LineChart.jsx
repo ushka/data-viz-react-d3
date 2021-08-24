@@ -3,6 +3,7 @@ import { scaleTime, extent, scaleLinear, max, line } from 'https://cdn.skypack.d
 import { YMarkerLine } from './YMarkerLine';
 import { XMarkerLine } from './XMarkerLine';
 import { XAxis } from './XAxis';
+import { YAxis } from './YAxis';
 
 const xValue = d => d.date;
 const yValue = d => d.deathTotal;
@@ -37,9 +38,10 @@ export const LineChart = ({ data, width, height }) => {
   return (
     <svg width={width} height={height}> 
       <g transform={`translate(${margin.left},${margin.top})`}>
+        <XAxis xScale={xScale} innerHeight={innerHeight} />
+        <YAxis yScale={yScale} innerWidth={innerWidth} />
         <YMarkerLine value={4000000} yScale={yScale} innerWidth={innerWidth} />        
         <XMarkerLine value={mostRecentDate} xScale={xScale} innerHeight={innerHeight} />
-        <XAxis xScale={xScale} innerHeight={innerHeight} />
         <path d={lineGenerator(data)} />        
       </g>
     </svg>
