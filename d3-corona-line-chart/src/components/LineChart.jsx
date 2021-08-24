@@ -1,7 +1,5 @@
 import React from 'https://cdn.skypack.dev/react';
 import { scaleTime, extent, scaleLinear, max, line } from 'https://cdn.skypack.dev/d3';
-import { YMarkerLine } from './YMarkerLine';
-import { XMarkerLine } from './XMarkerLine';
 import { XAxis } from './XAxis';
 import { YAxis } from './YAxis';
 
@@ -39,9 +37,7 @@ export const LineChart = ({ data, width, height }) => {
     <svg width={width} height={height}> 
       <g transform={`translate(${margin.left},${margin.top})`}>
         <XAxis xScale={xScale} innerHeight={innerHeight} />
-        <YAxis yScale={yScale} innerWidth={innerWidth} />
-        <YMarkerLine value={4000000} yScale={yScale} innerWidth={innerWidth} />        
-        <XMarkerLine value={mostRecentDate} xScale={xScale} innerHeight={innerHeight} />
+        <YAxis yScale={yScale} innerWidth={innerWidth} />        
         <path d={lineGenerator(data)} />        
       </g>
     </svg>
