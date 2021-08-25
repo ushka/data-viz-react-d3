@@ -31,3 +31,8 @@ text {
   fill: #565656;
   font-size: 14px;
 }
+
+.axisLabel {
+  font-size: 20px;
+  fill:  #313639;
+}

@@ -6,10 +6,10 @@ import { YAxis } from './YAxis';
 const xValue = d => d.date;
 const yValue = d => d.deathTotal;
 const margin = {
-  top: 40,
+  top: 60,
   right: 40,
-  bottom: 60,
-  left: 50
+  bottom: 100,
+  left: 100
 };
 
 export const LineChart = ({ data, width, height }) => {
@@ -38,7 +38,10 @@ export const LineChart = ({ data, width, height }) => {
       <g transform={`translate(${margin.left},${margin.top})`}>
         <XAxis xScale={xScale} innerHeight={innerHeight} />
         <YAxis yScale={yScale} innerWidth={innerWidth} />        
-        <path d={lineGenerator(data)} />        
+        <path d={lineGenerator(data)} />
+        <text transform={`translate(${innerWidth / 2},-20)`} text-anchor="middle">Global Coronavirus Deaths</text>
+        <text className="axisLabel" transform={`translate(-40,${innerHeight / 2}) rotate(-90)`} text-anchor="middle">Cumulative Deaths</text>
+        <text className="axisLabel" transform={`translate(${innerWidth / 2}, ${innerHeight + 40})`} alignment-baseline="hanging" text-anchor="middle">Time</text>
       </g>
     </svg>
   );  
