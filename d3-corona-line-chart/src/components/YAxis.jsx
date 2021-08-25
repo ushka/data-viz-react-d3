@@ -7,7 +7,8 @@ export const YAxis = ({ yScale, innerWidth }) => {
     const yAxisG = select(ref.current);
     const yAxis = axisLeft(yScale)
       .tickSize(-innerWidth)
-      .tickPadding(15);
+      .tickPadding(3)
+      .ticks(10, '~s');
     yAxisG.call(yAxis);
   }, []);
   return <g ref={ref} />;

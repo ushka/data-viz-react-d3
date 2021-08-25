@@ -1,5 +1,5 @@
 import React from 'https://cdn.skypack.dev/react';
-import { scaleTime, extent, scaleLinear, max, line } from 'https://cdn.skypack.dev/d3';
+import { scaleTime, extent, scaleLog, max, line } from 'https://cdn.skypack.dev/d3';
 import { XAxis } from './XAxis';
 import { YAxis } from './YAxis';
 
@@ -7,9 +7,9 @@ const xValue = d => d.date;
 const yValue = d => d.deathTotal;
 const margin = {
   top: 40,
-  right: 80,
-  bottom: 80,
-  left: 180
+  right: 40,
+  bottom: 60,
+  left: 50
 };
 
 export const LineChart = ({ data, width, height }) => {
@@ -20,8 +20,8 @@ export const LineChart = ({ data, width, height }) => {
     .domain(extent(data, xValue))
     .range([0, innerWidth]);
 
-  const yScale = scaleLinear()
-    .domain([0, max(data, yValue)])
+  const yScale = scaleLog()
+    .domain([1, max(data, yValue)])
     .range([innerHeight, 0]);
 
   // console.log(xScale.domain());
