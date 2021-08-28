@@ -1,5 +1,5 @@
 import React from 'https://cdn.skypack.dev/react';
-import { scaleTime, extent, scaleLog, max, line } from 'https://cdn.skypack.dev/d3';
+import { scaleTime, extent, scaleLog, max, line, timeFormat } from 'https://cdn.skypack.dev/d3';
 import { XAxis } from './XAxis';
 import { YAxis } from './YAxis';
 
@@ -11,25 +11,30 @@ const margin = {
   bottom: 100,
   left: 100
 };
+const formatDate = timeFormat('%b %d');
 
 export const LineChart = ({ data, width, height }) => {
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
+  const allData = data.reduce(
+    (accumulator, countryTimeseries) => accumulator.concat(countryTimeseries), 
+    []
+  );
+
+  const epsilon = 1;
+
   const xScale = scaleTime()
-    .domain(extent(data, xValue))
+    .domain(extent(allData, xValue))
     .range([0, innerWidth]);
 
   const yScale = scaleLog()
-    .domain([1, max(data, yValue)])
+    .domain([epsilon, max(allData, yValue)])
     .range([innerHeight, 0]);
-
-  // console.log(xScale.domain());
-  // console.log(yScale.domain());
 
   const lineGenerator = line()
     .x(d => xScale(xValue(d)))
-    .y(d => yScale(yValue(d)));  
+    .y(d => yScale(epsilon + yValue(d)));    
 
   const mostRecentDate = xScale.domain()[1];
 
@@ -37,8 +42,12 @@ export const LineChart = ({ data, width, height }) => {
     <svg width={width} height={height}> 
       <g transform={`translate(${margin.left},${margin.top})`}>
         <XAxis xScale={xScale} innerHeight={innerHeight} />
-        <YAxis yScale={yScale} innerWidth={innerWidth} />        
-        <path d={lineGenerator(data)} />
+        <YAxis yScale={yScale} innerWidth={innerWidth} />
+        {data.map(countryTimeseries => {          
+          return (
+            <path d={lineGenerator(countryTimeseries)} />
+          );
+        })}
         <text transform={`translate(${innerWidth / 2},-20)`} text-anchor="middle">Global Coronavirus Deaths</text>
         <text className="axisLabel" transform={`translate(-40,${innerHeight / 2}) rotate(-90)`} text-anchor="middle">Cumulative Deaths</text>
         <text className="axisLabel" transform={`translate(${innerWidth / 2}, ${innerHeight + 40})`} alignment-baseline="hanging" text-anchor="middle">Time</text>
