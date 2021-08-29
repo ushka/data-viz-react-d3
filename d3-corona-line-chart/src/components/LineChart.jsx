@@ -57,8 +57,11 @@ export const LineChart = ({ data, width, height }) => {
         <text className="axisLabel" transform={`translate(-40,${innerHeight / 2}) rotate(-90)`} text-anchor="middle">Cumulative Deaths</text>
         <text className="axisLabel" transform={`translate(${innerWidth / 2}, ${innerHeight + 40})`} alignment-baseline="hanging" text-anchor="middle">Time</text>
         <VoronoiOverlay 
+          allData={allData}
           innerWidth={innerWidth}
-          innerHeight={innerHeight}
+          innerHeight={innerHeight}                  
+          lineGenerator={lineGenerator}
+          epsilon={epsilon}
           onHover={handleVoronoiHover} />
       </g>
     </svg>
