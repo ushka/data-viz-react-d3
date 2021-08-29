@@ -1,7 +1,8 @@
-import React from 'https://cdn.skypack.dev/react';
+import React, { useCallback } from 'https://cdn.skypack.dev/react';
 import { scaleTime, extent, scaleLog, max, line, timeFormat } from 'https://cdn.skypack.dev/d3';
 import { XAxis } from './XAxis';
 import { YAxis } from './YAxis';
+import { VoronoiOverlay } from './VoronoiOverlay';
 
 const xValue = d => d.date;
 const yValue = d => d.deathTotal;
@@ -38,6 +39,10 @@ export const LineChart = ({ data, width, height }) => {
 
   const mostRecentDate = xScale.domain()[1];
 
+  const handleVoronoiHover = useCallback(() => {
+    console.log('Hovered');
+  },[]);
+
   return (
     <svg width={width} height={height}> 
       <g transform={`translate(${margin.left},${margin.top})`}>
@@ -51,6 +56,10 @@ export const LineChart = ({ data, width, height }) => {
         <text transform={`translate(${innerWidth / 2},-20)`} text-anchor="middle">Global Coronavirus Deaths</text>
         <text className="axisLabel" transform={`translate(-40,${innerHeight / 2}) rotate(-90)`} text-anchor="middle">Cumulative Deaths</text>
         <text className="axisLabel" transform={`translate(${innerWidth / 2}, ${innerHeight + 40})`} alignment-baseline="hanging" text-anchor="middle">Time</text>
+        <VoronoiOverlay 
+          innerWidth={innerWidth}
+          innerHeight={innerHeight}
+          onHover={handleVoronoiHover} />
       </g>
     </svg>
   );  
