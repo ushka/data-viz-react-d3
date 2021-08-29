@@ -5,13 +5,12 @@ body {
 }
 
 path {
-  fill: none;
-  /*stroke: black;*/
+  fill: none; 
   stroke-width: 2px;
 }
 
 .markerLine {
-  stroke: black;
+  stroke: #777;
   stroke-width: 1px;
 }
 

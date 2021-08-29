@@ -44,12 +44,8 @@ export const LineChart = ({ data, width, height }) => {
         <XAxis xScale={xScale} innerHeight={innerHeight} />
         <YAxis yScale={yScale} innerWidth={innerWidth} />
         {data.map(countryTimeseries => {
-          const r = Math.random() * 255;          
-          const g = Math.random() * 255;          
-          const b = Math.random() * 255;          
-          const strokeColor = `rgb(${r},${g},${b})`
           return (
-            <path stroke={strokeColor} d={lineGenerator(countryTimeseries)} />
+            <path className="markerLine" d={lineGenerator(countryTimeseries)} />
           );
         })}
         <text transform={`translate(${innerWidth / 2},-20)`} text-anchor="middle">Global Coronavirus Deaths</text>
