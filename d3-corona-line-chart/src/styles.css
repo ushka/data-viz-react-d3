@@ -4,11 +4,6 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-path {
-  fill: none; 
-  stroke-width: 2px;
-}
-
 .markerLine {
   stroke: #a2a2a2;
   stroke-width: 1px;

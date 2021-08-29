@@ -14,10 +14,11 @@ const transform = rawData => {
   // Get timeseries data for each country
   const days = rawData.columns.slice(4);
   return countriesData.map(d => {
-    // const countryName = d['Country/Region'];
+    const countryName = d['Country/Region'];
     return days.map(day => ({
       date: parseDay(day),
-      deathTotal: +d[day]
+      deathTotal: +d[day],
+      countryName
     }));  
   });  
   

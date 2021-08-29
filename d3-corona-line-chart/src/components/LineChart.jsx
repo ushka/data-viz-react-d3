@@ -1,4 +1,4 @@
-import React, { useCallback } from 'https://cdn.skypack.dev/react';
+import React, { useState, useCallback } from 'https://cdn.skypack.dev/react';
 import { scaleTime, extent, scaleLog, max, line, timeFormat } from 'https://cdn.skypack.dev/d3';
 import { XAxis } from './XAxis';
 import { YAxis } from './YAxis';
@@ -15,6 +15,8 @@ const margin = {
 const formatDate = timeFormat('%b %d');
 
 export const LineChart = ({ data, width, height }) => {
+  const [activeCountryName, setActiveCountryName] = useState();
+
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
@@ -39,8 +41,12 @@ export const LineChart = ({ data, width, height }) => {
 
   const mostRecentDate = xScale.domain()[1];
 
-  const handleVoronoiHover = useCallback(() => {
-    console.log('Hovered');
+  console.log(activeCountryName);
+
+  const handleVoronoiHover = useCallback(d => {
+    // console.log('Hovered');
+    // console.log(d);
+    setActiveCountryName(d.countryName);
   },[]);
 
   return (
@@ -61,7 +67,6 @@ export const LineChart = ({ data, width, height }) => {
           innerWidth={innerWidth}
           innerHeight={innerHeight}                  
           lineGenerator={lineGenerator}
-          epsilon={epsilon}
           onHover={handleVoronoiHover} />
       </g>
     </svg>
