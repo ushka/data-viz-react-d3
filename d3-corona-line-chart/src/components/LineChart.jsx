@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'https://cdn.skypack.dev/react';
+import React, { useState, useCallback, useMemo } from 'https://cdn.skypack.dev/react';
 import { scaleTime, extent, scaleLog, max, line, timeFormat } from 'https://cdn.skypack.dev/d3';
 import { XAxis } from './XAxis';
 import { YAxis } from './YAxis';
@@ -20,32 +20,44 @@ export const LineChart = ({ data, width, height }) => {
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
-  const allData = data.reduce(
-    (accumulator, countryTimeseries) => accumulator.concat(countryTimeseries), 
-    []
+  const allData = useMemo(
+    () => 
+      data.reduce(
+        (accumulator, countryTimeseries) => 
+          accumulator.concat(countryTimeseries), 
+        []
+      ),
+    [data]
   );
 
   const epsilon = 1;
 
-  const xScale = scaleTime()
-    .domain(extent(allData, xValue))
-    .range([0, innerWidth]);
+  const xScale = useMemo(
+    () => 
+      scaleTime()
+        .domain(extent(allData, xValue))
+        .range([0, innerWidth]), 
+        [allData, xValue]
+  );
 
-  const yScale = scaleLog()
-    .domain([epsilon, max(allData, yValue)])
-    .range([innerHeight, 0]);
+  const yScale = useMemo(
+    () => 
+      scaleLog()
+        .domain([epsilon, max(allData, yValue)])
+        .range([innerHeight, 0]), [epsilon, allData, yValue]
+  );
 
-  const lineGenerator = line()
-    .x(d => xScale(xValue(d)))
-    .y(d => yScale(epsilon + yValue(d)));    
+  const lineGenerator = useMemo(
+    () => 
+      line()
+        .x(d => xScale(xValue(d)))
+        .y(d => yScale(epsilon + yValue(d))), 
+        [xScale, xValue, yScale, yValue]
+  );    
 
   const mostRecentDate = xScale.domain()[1];
 
-  console.log(activeCountryName);
-
   const handleVoronoiHover = useCallback(d => {
-    // console.log('Hovered');
-    // console.log(d);
     setActiveCountryName(d.countryName);
   },[]);
 
