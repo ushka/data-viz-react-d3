@@ -15,11 +15,15 @@ const transform = rawData => {
   const days = rawData.columns.slice(4);
   return countriesData.map(d => {
     const countryName = d['Country/Region'];
-    return days.map(day => ({
+    
+    const countryTimeSeries = days.map(day => ({
       date: parseDay(day),
       deathTotal: +d[day],
       countryName
     }));  
+    countryTimeSeries.countryName = countryName;
+
+    return countryTimeSeries;
   });  
   
 };

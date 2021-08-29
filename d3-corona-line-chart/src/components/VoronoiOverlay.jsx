@@ -5,10 +5,6 @@ export const VoronoiOverlay = ({ innerWidth, innerHeight, allData, lineGenerator
   const points = allData.map(d => [lineGenerator.x()(d), lineGenerator.y()(d)]);
   const delaunay = Delaunay.from(points);
   const voronoi = delaunay.voronoi([0, 0, innerWidth, innerHeight]);
-  
-  // const handleMouseEnter = (event) => {
-  //   console.log(event);
-  // };
 
   return <g className="voronoi">
     {points.map((point, i) => (
@@ -16,7 +12,6 @@ export const VoronoiOverlay = ({ innerWidth, innerHeight, allData, lineGenerator
         onMouseEnter={() => onHover(allData[i])} 
         fill="none" 
         stroke="pink"
-        stroke-width="1px" 
         d={voronoi.renderCell(i)} />
     ))}
   </g>
