@@ -81,7 +81,7 @@ export const LineChart = ({ data, width, height }) => {
             </g>
           </>
         ) : null}
-        <text transform={`translate(${innerWidth / 2},-20)`} text-anchor="middle">Global Coronavirus Deaths</text>
+        <text className="title" text-anchor="start" dy={-10}>Global Coronavirus Deaths Over Time By Country</text>
         <text className="axisLabel" transform={`translate(-40,${innerHeight / 2}) rotate(-90)`} text-anchor="middle">Cumulative Deaths</text>
         <text className="axisLabel" transform={`translate(${innerWidth / 2}, ${innerHeight + 40})`} alignment-baseline="hanging" text-anchor="middle">Time</text>
         <VoronoiOverlay 
