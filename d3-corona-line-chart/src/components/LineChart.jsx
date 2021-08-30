@@ -77,6 +77,7 @@ export const LineChart = ({ data, width, height }) => {
             />
             <g transform={`translate(${lineGenerator.x()(activeRow)}, ${lineGenerator.y()(activeRow)})`}>
               <circle r={2} />
+              <text className="tooltip-stroke" x={-10} y={-10} text-anchor={`end`} >{activeRow.countryName}: {activeRow.deathTotal.toLocaleString()} deaths as of {formatDate(activeRow.date)}</text>
               <text className="tooltip" x={-10} y={-10} text-anchor={`end`} >{activeRow.countryName}: {activeRow.deathTotal.toLocaleString()} deaths as of {formatDate(activeRow.date)}</text>
             </g>
           </>

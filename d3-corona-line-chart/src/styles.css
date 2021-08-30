@@ -27,9 +27,16 @@ text {
   font-size: 24px;  
 }
 
+.tooltip-stroke {  
+  font-weight: bold;
+  font-size: 16px;  
+  stroke: #fff;
+  stroke-width: 1px;
+}
+
 .tooltip {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 16px;  
 }
 
 .domain {
