@@ -15,7 +15,7 @@ const margin = {
 const formatDate = timeFormat('%b %d');
 
 export const LineChart = ({ data, width, height }) => {
-  const [activeCountryName, setActiveCountryName] = useState();
+  const [activeRow, setActiveRow] = useState();
 
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
@@ -57,9 +57,7 @@ export const LineChart = ({ data, width, height }) => {
 
   const mostRecentDate = xScale.domain()[1];
 
-  const handleVoronoiHover = useCallback(d => {
-    setActiveCountryName(d.countryName);
-  },[]);
+  const handleVoronoiHover = useCallback(setActiveRow,[]);
 
   return (
     <svg width={width} height={height}> 
@@ -71,11 +69,14 @@ export const LineChart = ({ data, width, height }) => {
             <path className="markerLine" d={lineGenerator(countryTimeseries)} />
           );
         })}
-        {activeCountryName ? (
-          <path 
-            className="markerLine active" 
-            d={lineGenerator(data.find(countryTimeseries => countryTimeseries.countryName === activeCountryName))}
-          />
+        {activeRow ? (
+          <>
+            <path 
+              className="markerLine active" 
+              d={lineGenerator(data.find(countryTimeseries => countryTimeseries.countryName === activeRow.countryName))}
+            />
+            <circle cx={lineGenerator.x()(activeRow)} cy={lineGenerator.y()(activeRow)} r={2} />
+          </>
         ) : null}
         <text transform={`translate(${innerWidth / 2},-20)`} text-anchor="middle">Global Coronavirus Deaths</text>
         <text className="axisLabel" transform={`translate(-40,${innerHeight / 2}) rotate(-90)`} text-anchor="middle">Cumulative Deaths</text>
