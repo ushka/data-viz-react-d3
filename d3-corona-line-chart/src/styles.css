@@ -23,6 +23,11 @@ text {
   font-size: 2em;
 }
 
+.tooltip {
+  font-weight: bold;
+  font-size: 16px;
+}
+
 .domain {
   display: none;
 }

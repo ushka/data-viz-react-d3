@@ -12,7 +12,7 @@ const margin = {
   bottom: 100,
   left: 100
 };
-const formatDate = timeFormat('%b %d');
+const formatDate = timeFormat('%d %b, %Y');
 
 export const LineChart = ({ data, width, height }) => {
   const [activeRow, setActiveRow] = useState();
@@ -75,7 +75,10 @@ export const LineChart = ({ data, width, height }) => {
               className="markerLine active" 
               d={lineGenerator(data.find(countryTimeseries => countryTimeseries.countryName === activeRow.countryName))}
             />
-            <circle cx={lineGenerator.x()(activeRow)} cy={lineGenerator.y()(activeRow)} r={2} />
+            <g transform={`translate(${lineGenerator.x()(activeRow)}, ${lineGenerator.y()(activeRow)})`}>
+              <circle r={2} />
+              <text className="tooltip" x={-10} y={-10} text-anchor={`end`} >{activeRow.countryName}: {activeRow.deathTotal.toLocaleString()} deaths as of {formatDate(activeRow.date)}</text>
+            </g>
           </>
         ) : null}
         <text transform={`translate(${innerWidth / 2},-20)`} text-anchor="middle">Global Coronavirus Deaths</text>
