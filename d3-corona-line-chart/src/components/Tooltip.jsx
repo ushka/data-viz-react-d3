@@ -10,7 +10,7 @@ export const Tooltip = ({ activeRow, className }) => {
       x={-10} 
       y={-10} 
       text-anchor={`end`} >
-        {activeRow.countryName}: {activeRow.deathTotal.toLocaleString()} deaths as of {formatDate(activeRow.date)}
+        {activeRow.countryName}: {activeRow.deathTotal.toLocaleString()} death{activeRow.deathTotal > 1 ? 's' : ''} as of {formatDate(activeRow.date)}
     </text>
   );
 }
