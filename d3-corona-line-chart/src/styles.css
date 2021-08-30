@@ -14,6 +14,11 @@ body {
   stroke: #333;
 }
 
+.voronoi path {
+  fill: none;
+  pointer-events: all;
+}
+
 text {
   font-size: 2em;
 }

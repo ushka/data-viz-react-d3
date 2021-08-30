@@ -20,9 +20,7 @@ export const VoronoiOverlay = ({ innerWidth, innerHeight, allData, lineGenerator
       <g className="voronoi">
         {points.map((point, i) => (
           <path
-            onMouseEnter={() => onHover(allData[i])}
-            fill="none"
-            stroke="pink"
+            onMouseEnter={() => onHover(allData[i])}            
             d={voronoi.renderCell(i)}
           />
         ))}
