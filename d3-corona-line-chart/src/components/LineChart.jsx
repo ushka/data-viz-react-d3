@@ -1,8 +1,9 @@
 import React, { useState, useCallback, useMemo } from 'https://cdn.skypack.dev/react';
-import { scaleTime, extent, scaleLog, max, line, timeFormat } from 'https://cdn.skypack.dev/d3';
+import { scaleTime, extent, scaleLog, max, line } from 'https://cdn.skypack.dev/d3';
 import { XAxis } from './XAxis';
 import { YAxis } from './YAxis';
 import { VoronoiOverlay } from './VoronoiOverlay';
+import { Tooltip } from './Tooltip';
 
 const xValue = d => d.date;
 const yValue = d => d.deathTotal;
@@ -12,7 +13,6 @@ const margin = {
   bottom: 100,
   left: 100
 };
-const formatDate = timeFormat('%d %b, %Y');
 
 export const LineChart = ({ data, width, height }) => {
   const [activeRow, setActiveRow] = useState();
@@ -77,8 +77,8 @@ export const LineChart = ({ data, width, height }) => {
             />
             <g transform={`translate(${lineGenerator.x()(activeRow)}, ${lineGenerator.y()(activeRow)})`}>
               <circle r={2} />
-              <text className="tooltip-stroke" x={-10} y={-10} text-anchor={`end`} >{activeRow.countryName}: {activeRow.deathTotal.toLocaleString()} deaths as of {formatDate(activeRow.date)}</text>
-              <text className="tooltip" x={-10} y={-10} text-anchor={`end`} >{activeRow.countryName}: {activeRow.deathTotal.toLocaleString()} deaths as of {formatDate(activeRow.date)}</text>
+              <Tooltip activeRow={activeRow} className="tooltip-stroke"/>
+              <Tooltip activeRow={activeRow} className="tooltip" />              
             </g>
           </>
         ) : null}
