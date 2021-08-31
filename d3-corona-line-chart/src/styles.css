@@ -4,6 +4,10 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+svg {
+  background: #fef3e7;
+}
+
 .markerLine {
   fill: none;
   stroke: #a2a2a2;
@@ -44,7 +48,7 @@ text {
 }
 
 .tick line {
-  stroke: #dedede;
+  stroke: #f4e8dc;
 }
 
 .tick text {
