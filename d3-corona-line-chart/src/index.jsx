@@ -3,8 +3,8 @@ import ReactDOM from 'https://cdn.skypack.dev/react-dom';
 import { useData } from './useData';
 import { LineChart } from './components/LineChart';
 
-const width = window.innerWidth;
-const height = window.innerHeight;
+const width = 960;
+const height = 500;
 
 const App = () => { 
   const data = useData();  

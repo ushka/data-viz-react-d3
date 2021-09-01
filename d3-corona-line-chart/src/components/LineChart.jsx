@@ -60,7 +60,7 @@ export const LineChart = ({ data, width, height }) => {
   const handleVoronoiHover = useCallback(setActiveRow,[]);
 
   return (
-    <svg width={width} height={height}> 
+    <svg viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet"> 
       <g transform={`translate(${margin.left},${margin.top})`}>
         <XAxis xScale={xScale} innerHeight={innerHeight} />
         <YAxis yScale={yScale} innerWidth={innerWidth} />
