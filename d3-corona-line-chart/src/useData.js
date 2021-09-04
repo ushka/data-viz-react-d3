@@ -13,12 +13,16 @@ const transform = rawData => {
   // filter out rows that that represent provinces or states
   // const countriesData = rawData.filter(d => !d['Province/State']);
   const countriesData = rawData.filter(d => {
-    if(d['Province/State'] !== 'Australia' && d['Province/State'] !== 'Canada' && d['Province/State'] === 'China') {
-      return !d['Province/State'];
+    if(d['Country/Region'] !== 'Australia' && d['Country/Region'] !== 'Canada' && d['Country/Region'] !== 'China') {
+      return !d['Province/State'];      
     } else {
       return d;
     }
   });
+
+  countriesData.map(d => {
+    console.log(d);
+  })
 
   // Get timeseries data for each country
   const days = rawData.columns.slice(4);
@@ -31,7 +35,7 @@ const transform = rawData => {
       countryName
     }));  
     countryTimeSeries.countryName = countryName;
-    console.log(countryTimeSeries);
+
     return countryTimeSeries;
   });  
   
