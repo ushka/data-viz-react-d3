@@ -13,28 +13,58 @@ const transform = rawData => {
   // filter out rows that that represent provinces or states
   // const countriesData = rawData.filter(d => !d['Province/State']);
   const countriesData = rawData.filter(d => {
+    if(d['Country/Region'] !== 'Summer Olympics 2020') {
+      return d;
+    } 
     if(d['Country/Region'] !== 'Australia' && d['Country/Region'] !== 'Canada' && d['Country/Region'] !== 'China') {
       return !d['Province/State'];      
-    } else {
+    }
+    else {
       return d;
     }
   });
 
-  countriesData.map(d => {
-    console.log(d);
-  })
-
   // Get timeseries data for each country
   const days = rawData.columns.slice(4);
+  // Only return 2021 data
+  // console.log(rawData.columns.slice(349));
   return countriesData.map(d => {
     const countryName = d['Country/Region'];
-    
-    const countryTimeSeries = days.map(day => ({
-      date: parseDay(day),
-      deathTotal: +d[day],
-      countryName
-    }));  
+
+    const countryTimeSeries = days.map(day => {      
+
+      function sumAll() {
+        var i;
+        var sum = 0;
+        for (i = 0; i < arguments.length; i++) {
+          sum += arguments[i];
+        }
+        return sum;
+      }
+
+      if(d['Country/Region'] === 'Australia') {
+        return {
+          date: parseDay(day),
+          deathTotal: sumAll(+d[day]),
+          countryName: 'Australia'
+        }
+      } else {
+        return {
+          date: parseDay(day),
+          deathTotal: +d[day],
+          countryName
+        }
+      }
+      
+    });  
     countryTimeSeries.countryName = countryName;
+    
+    // const countryTimeSeries = days.map(day => ({
+    //   date: parseDay(day),
+    //   deathTotal: +d[day],
+    //   countryName
+    // }));  
+    // countryTimeSeries.countryName = countryName;
 
     return countryTimeSeries;
   });  
