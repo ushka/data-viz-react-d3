@@ -54,15 +54,18 @@ const transform = rawData => {
 export const useData = () => {
   const [data, setData] = useState(null);
 
-  // if(data) {
-  //   console.log('useData data', data);
-  // }
+  if(data) {
+    console.log('useData data', data);
+  }
 
   useEffect(() => {
-    csv(csvUrl).then(rawData => {
+    const loadCSV = async () => {
+      const rawData = await csv(csvUrl);
       setData(transform(rawData));
-    });
-  }, [])
+    };
+
+    loadCSV();
+  }, []);
 
   return data;
 };
