@@ -10,6 +10,10 @@ const transform = rawData => {
 
   console.log(rawData);
   
+  // -------------------------------------------------------------------------------------------------------------------
+  // Implementation 1
+  // -------------------------------------------------------------------------------------------------------------------
+
   // filter out rows that that represent provinces or states
   // const countriesData = rawData.filter(d => !d['Province/State']);
   const countriesData = rawData.filter(d => {
@@ -23,15 +27,7 @@ const transform = rawData => {
       return d;
     }
   });
-
-  const ausData = countriesData.filter(d => {
-    if(d['Country/Region'] === 'Australia') {      
-      return d;
-    }
-  });
-  console.log(ausData);
   
-
   // Get timeseries data for each country
   const days = rawData.columns.slice(4);
   // Only return 2021 data
@@ -48,6 +44,32 @@ const transform = rawData => {
 
     return countryTimeSeries;
   });  
+
+  // -------------------------------------------------------------------------------------------------------------------
+  // Implementation 2
+  // -------------------------------------------------------------------------------------------------------------------
+
+  // const columns = Object.keys(rawData[0]);
+  // const provinceKey = columns[0];
+  // const countryKey = columns[1];
+  // const latKey = columns[2];
+  // const lngKey = columns[3];
+  // const dateKeys = columns.slice(4);
+  // return rawData.reduce((acc, curr) => {
+  //   const countryName = curr[countryKey];
+
+  //   const countryTimeSeries = dateKeys.map((date) => ({
+  //     date: parseDay(date),
+  //     deathTotal: +curr[date],
+  //     countryName
+  //   }));
+  //   countryTimeSeries.countryName = countryName;
+
+  //   return [
+  //     ...acc,
+  //     countryTimeSeries
+  //   ];
+  // }, []);
   
 };
 
