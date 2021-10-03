@@ -6,3 +6,5 @@ Companion code for FreeCodeCamp course on Data Viz with React and D3. Examples d
 
 [Video Part 2](https://www.youtube.com/watch?v=H2qPeJx1RDI)
 
+Uses Node v12.
+
